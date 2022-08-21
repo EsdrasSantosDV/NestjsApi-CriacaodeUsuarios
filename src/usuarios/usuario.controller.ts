@@ -25,6 +25,7 @@ export class UsuarioController{
     @Post()
     public cria(@Body()usuario:Usuario)
     {
+       
         const usuarioCriado= this.usuarioService.cria(usuario);
         return usuarioCriado;
     }

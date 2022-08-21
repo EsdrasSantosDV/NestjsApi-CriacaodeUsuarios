@@ -7,7 +7,8 @@ import { ConfigModule } from '@nestjs/config/dist/config.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
+import { FiltrodeExcecaoHttp } from './common/filtros/filtro-de-excecao-http.filter';
 
 
 //PRECISA COLOCAR NO APP.MODULE AS CONTROLLERS E OS SERVICES
@@ -17,6 +18,6 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
   ],
   controllers: [AppController],
   providers: [AppService,{provide: APP_INTERCEPTOR,useClass: ClassSerializerInterceptor
-  }],
+  },{provide:APP_FILTER,useClass:FiltrodeExcecaoHttp}],
 })
 export class AppModule {}
