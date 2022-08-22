@@ -2,7 +2,7 @@ import { NestResponseBuilder } from './../core/http/nest-response-builder';
 import { NestResponse } from './../core/http/nest-response';
 import { Usuario } from './usuario.entity';
 import { UsuarioService } from './usuario.service';
-import { Body, Controller, Get, HttpStatus, Param, Post, Res } from "@nestjs/common";
+import { Body, Controller, Get, HttpStatus, NotFoundException, Param, Post, Res } from "@nestjs/common";
 
 //URL
 @Controller('usuarios')
@@ -17,9 +17,16 @@ export class UsuarioController{
 
 
     @Get(':nome')
-    public buscapornome(@Param('nome')nomedousuario:string)
+    public buscapornome(@Param('nome')nomedousuario:string):Usuario
     {
         const usuario=this.usuarioService.buscarpornome(nomedousuario);
+        if(!usuario)
+        {
+            throw new NotFoundException({
+                statusCode:HttpStatus.NOT_FOUND,
+                message:'Usuario não Encontrado.'
+            })
+        }
         return usuario;
     }
 
