@@ -1,3 +1,4 @@
+import { TransformaRespostaInterceptor } from './core/http/transforma-reposta.interceptor';
 import { UsuarioModule } from './usuarios/usuario.module';
 import { UsuarioService } from './usuarios/usuario.service';
 import { UsuarioController } from './usuarios/usuario.controller';
@@ -18,6 +19,7 @@ import { FiltrodeExcecaoHttp } from './common/filtros/filtro-de-excecao-http.fil
   ],
   controllers: [AppController],
   providers: [AppService,{provide: APP_INTERCEPTOR,useClass: ClassSerializerInterceptor
-  },{provide:APP_FILTER,useClass:FiltrodeExcecaoHttp}],
+  },{provide:APP_FILTER,useClass:FiltrodeExcecaoHttp},
+    {provide:APP_INTERCEPTOR,useClass:TransformaRespostaInterceptor}],
 })
 export class AppModule {}
